@@ -22,7 +22,7 @@ Accelerate onboarding for new FSEs and provide instant access to troubleshooting
 
 ## 📱 Live Demo
 
-[View Live Site](https://[your-username].github.io/fse-knowledge-hub/)
+[View Live Site](https://cmorofeo.github.io/fse-knowledge-hub/)
 
 ## 🚀 Roadmap
 
@@ -43,7 +43,7 @@ Accelerate onboarding for new FSEs and provide instant access to troubleshooting
 Built for Coherent Scientific FSE Team | 2024
 ```
 
-- [ ] Replace `[your-username]` with your actual GitHub username
+- [ ] Replace `cmorofeo` with your actual GitHub username
 - [ ] Click **"Commit changes"**
 
 **Now your GitHub profile looks PROFESSIONAL!** ✨

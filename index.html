@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FSE Training Platform | Coherent Scientific</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #202124;
+        }
+
+        /* Navigation */
+        nav {
+            background: #0a2540;
+            border-bottom: none;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 16px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-image {
+            height: 50px;
+            width: auto;
+        }
+
+        .logo-text {
+            font-size: 24px;
+            font-weight: 300;
+            color: white;
+            letter-spacing: 2px;
+        }
+
+        .logo-subtext {
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.7);
+            font-weight: 400;
+            letter-spacing: 3px;
+            margin-top: 2px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+            padding: 8px 0;
+            border-bottom: 2px solid transparent;
+        }
+
+        .nav-links a:hover {
+            color: #4db8ff;
+            border-bottom: 2px solid #4db8ff;
+        }
+
+        /* Hero Section with Background */
+        .hero {
+            background: linear-gradient(135deg, rgba(10, 37, 64, 0.95) 0%, rgba(15, 52, 96, 0.9) 100%);
+            color: white;
+            padding: 100px 24px 80px;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(10, 37, 64, 0.92) 0%, rgba(15, 52, 96, 0.88) 100%);
+            z-index: 1;
+        }
+
+        .hero-content {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .coherent-badge {
+            display: inline-block;
+            background: rgba(77, 184, 255, 0.2);
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 500;
+            margin-bottom: 24px;
+            border: 1px solid rgba(77, 184, 255, 0.4);
+            color: #4db8ff;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .hero p {
+            font-size: 20px;
+            margin-bottom: 32px;
+            opacity: 0.95;
+            line-height: 1.5;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: #4db8ff;
+            color: #0a2540;
+            padding: 14px 36px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 15px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 12px rgba(77, 184, 255, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .cta-button:hover {
+            background: #66c3ff;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(77, 184, 255, 0.4);
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 64px 24px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-alt {
+            background: #f8f9fa;
+        }
+
+        .section-title {
+            font-size: 36px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: #202124;
+            text-align: center;
+        }
+
+        .section-subtitle {
+            font-size: 18px;
+            color: #5f6368;
+            margin-bottom: 48px;
+            text-align: center;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Two Column Layout (for 2 notebooks) */
+        .two-columns {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 32px;
+            margin-top: 32px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            border: 1px solid #dadce0;
+            transition: all 0.3s;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .card:hover {
+            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+            transform: translateY(-4px);
+            border-color: #0a2540;
+        }
+
+        .card-icon {
+            font-size: 56px;
+            margin-bottom: 20px;
+        }
+
+        .card h3 {
+            font-size: 26px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: #202124;
+        }
+
+        .card p {
+            font-size: 15px;
+            color: #5f6368;
+            margin-bottom: 28px;
+            line-height: 1.6;
+        }
+
+        .card-button {
+            display: inline-block;
+            background: #0a2540;
+            color: white;
+            padding: 12px 28px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .card-button:hover {
+            background: #0f3460;
+            transform: scale(1.05);
+        }
+
+        /* Mission Section */
+        .mission-box {
+            background: white;
+            border-left: 4px solid #0a2540;
+            padding: 36px;
+            margin: 32px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .mission-box h3 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: #202124;
+        }
+
+        .mission-box p {
+            font-size: 16px;
+            color: #5f6368;
+            margin-bottom: 16px;
+            line-height: 1.7;
+        }
+
+        .values-list {
+            list-style: none;
+            margin-top: 16px;
+        }
+
+        .values-list li {
+            font-size: 16px;
+            color: #5f6368;
+            margin-bottom: 12px;
+            padding-left: 28px;
+            position: relative;
+        }
+
+        .values-list li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #0a2540;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        /* Feature Grid */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-top: 32px;
+        }
+
+        .feature-item {
+            text-align: center;
+            padding: 24px;
+            background: white;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+
+        .feature-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .feature-item-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+
+        .feature-item h4 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #202124;
+        }
+
+        .feature-item p {
+            font-size: 14px;
+            color: #5f6368;
+        }
+
+        /* Footer */
+        footer {
+            background: #202124;
+            color: #9aa0a6;
+            padding: 48px 24px;
+            text-align: center;
+        }
+
+        .footer-logo {
+            font-size: 24px;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 16px;
+        }
+
+        footer p {
+            font-size: 14px;
+            margin-bottom: 16px;
+        }
+
+        footer a {
+            color: #8ab4f8;
+            text-decoration: none;
+            margin: 0 12px;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Content Box */
+        .content-box {
+            background: white;
+            border: 1px solid #dadce0;
+            border-radius: 8px;
+            padding: 32px;
+            margin: 24px 0;
+        }
+
+        .placeholder-box {
+            background: #f8f9fa;
+            border: 2px dashed #dadce0;
+            border-radius: 8px;
+            padding: 48px 24px;
+            text-align: center;
+            margin: 24px 0;
+        }
+
+        .placeholder-box p {
+            color: #5f6368;
+            font-size: 14px;
+        }
+
+        /* Page Header */
+        .page-header {
+            padding: 48px 24px 24px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .page-header h1 {
+            font-size: 40px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #202124;
+        }
+
+        .page-header p {
+            font-size: 18px;
+            color: #5f6368;
+            line-height: 1.6;
+        }
+
+        /* Info Banner */
+        .info-banner {
+            background: linear-gradient(135deg, #e8f4fd 0%, #d2e9f7 100%);
+            border-left: 4px solid #0a2540;
+            padding: 20px 24px;
+            margin: 24px 0;
+            border-radius: 8px;
+        }
+
+        .info-banner h4 {
+            color: #0a2540;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .info-banner p {
+            color: #0a2540;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 32px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .section-title {
+                font-size: 28px;
+            }
+
+            .two-columns {
+                grid-template-columns: 1fr;
+            }
+
+            .card {
+                padding: 28px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">
+                <img src="coherent-logo.png" alt="Coherent Scientific" class="logo-image">
+            </div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#library">Library</a></li>
+                <li><a href="#multimedia">Resources</a></li>
+                <li><a href="#ops">Service Logs</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- HOME PAGE -->
+    <div id="home">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-content">
+                <div class="coherent-badge">FSE Training Initiative</div>
+                <h1>Empower Your Field Service Engineers with AI-Powered Training</h1>
+                <p>Access JEOL microscopy expertise, track competencies, and solve problems faster—all in one integrated platform</p>
+                <a href="mailto:margaret.davies@coherent.com.au?subject=FSE Platform Access Request" class="cta-button">Request Access</a>
+            </div>
+        </section>
+
+        <!-- Mission Section -->
+        <section class="section">
+            <div class="mission-box">
+                <h3>What is This Platform?</h3>
+                <p>This is your central hub for Field Service Engineer onboarding and ongoing technical support. Whether you're new to Coherent Scientific or a veteran FSE, this platform gives you instant access to Best Known Methods (BKMs), troubleshooting procedures, and equipment documentation—all in one searchable, AI-powered system.</p>
+                
+                <h3 style="margin-top: 24px;">How It Helps You</h3>
+                <ul class="values-list">
+                    <li><strong>Onboard Faster:</strong> New FSEs can search BKMs instead of waiting for answers from senior engineers</li>
+                    <li><strong>Solve Problems Quickly:</strong> Get instant answers to technical questions while on-site with customers</li>
+                    <li><strong>Learn from Experience:</strong> Access documented solutions from previous service calls and installations</li>
+                    <li><strong>Stay Current:</strong> All documentation updates automatically as new BKMs and procedures are added</li>
+                </ul>
+            </div>
+
+            <h2 class="section-title" style="margin-top: 64px;">What's Inside</h2>
+            <div class="feature-grid">
+                <div class="feature-item">
+                    <div class="feature-item-icon">📚</div>
+                    <h4>BKM Repository</h4>
+                    <p>Searchable Best Known Methods for all equipment - JEOL microscopes, pumps, circuitry, and more</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-item-icon">🔍</div>
+                    <h4>AI-Powered Search</h4>
+                    <p>Ask questions in plain English and get exact procedures with page references</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-item-icon">⚡</div>
+                    <h4>On-Site Support</h4>
+                    <p>Access critical troubleshooting steps from your phone while at customer locations</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- LIBRARY PAGE -->
+    <div id="library" class="section-alt">
+        <div class="page-header">
+            <h1>BKM Library - AI Search</h1>
+            <p>Search our Best Known Methods repository using AI. Ask questions about equipment troubleshooting, maintenance procedures, installation steps, and more. Every answer includes exact page references from official documentation.</p>
+        </div>
+
+        <section class="section">
+            <div class="info-banner">
+                <h4>💡 How to Use the BKM Search</h4>
+                <p>Click "Open BKM Notebook" below to access the AI search for each equipment type. Type your question like "How do I troubleshoot low vacuum on the IT800?" or "What's the bakeout procedure for the 1400 gun?" and get instant answers with source citations.</p>
+            </div>
+
+            <div class="two-columns">
+                <!-- Notebook 1: JEOL SEM -->
+                <div class="card">
+                    <div class="card-icon">🔬</div>
+                    <h3>JEOL SEM (IT800)</h3>
+                    <p>Best Known Methods for IT800 Scanning Electron Microscope including startup procedures, vacuum troubleshooting, alignment protocols, image optimization, and common fault resolution. Search through operational guides and maintenance documentation.</p>
+                    <a href="https://notebooklm.google.com/notebook/968ff999-09d0-406c-a7ad-3d57d84ce396" class="card-button" target="_blank" rel="noopener">Open BKM Notebook →</a>
+                </div>
+
+                <!-- Notebook 2: JEOL TEM -->
+                <div class="card">
+                    <div class="card-icon">🔬</div>
+                    <h3>JEOL TEM (1400 Flash)</h3>
+                    <p>Best Known Methods for 1400 Flash Transmission Electron Microscope including gun bakeout procedures, filament replacement, alignment workflows, imaging parameters, and troubleshooting guides for common TEM issues.</p>
+                    <a href="https://notebooklm.google.com/notebook/5e6c1790-8563-4559-ab28-0dc5f7128165" class="card-button" target="_blank" rel="noopener">Open BKM Notebook →</a>
+                </div>
+            </div>
+
+            <div class="content-box" style="margin-top: 48px;">
+                <h3 style="margin-bottom: 16px; font-size: 20px;">Example Questions You Can Ask</h3>
+                <ul class="values-list">
+                    <li>"How do I resolve a vacuum leak on the IT800?"</li>
+                    <li>"What are the steps for baking out the TEM gun?"</li>
+                    <li>"How do I align the electron beam on the SEM?"</li>
+                    <li>"What's the recommended maintenance schedule for [equipment]?"</li>
+                    <li>"How do I troubleshoot poor image quality?"</li>
+                </ul>
+                <p style="margin-top: 20px; color: #5f6368; font-size: 14px;"><strong>Coming Soon:</strong> Additional BKM notebooks for pumps, circuitry, vacuum systems, and other equipment will be added as they're documented.</p>
+            </div>
+        </section>
+    </div>
+
+    <!-- MULTIMEDIA PAGE -->
+    <div id="multimedia">
+        <div class="page-header">
+            <h1>Additional Resources</h1>
+            <p>Supplementary training materials, video guides, and reference documents to support your field service work.</p>
+        </div>
+
+        <section class="section">
+            <!-- Photo & Video Analysis Section - PROMINENT -->
+            <div class="content-box" style="background: linear-gradient(135deg, #e8f4fd 0%, #d2e9f7 100%); border: 2px solid #0a2540; padding: 40px;">
+                <div style="text-align: center; margin-bottom: 24px;">
+                    <div style="font-size: 64px; margin-bottom: 16px;">📸 🎥</div>
+                    <h2 style="font-size: 28px; color: #0a2540; margin-bottom: 12px;">Photo & Video Analysis</h2>
+                    <div style="display: inline-block; background: #0a2540; color: white; padding: 8px 20px; border-radius: 20px; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;">Coming Soon - Phase 2</div>
+                </div>
+                
+                <p style="color: #0a2540; margin-bottom: 24px; font-size: 16px; text-align: center;">Upload photos or videos of equipment issues and get AI-powered diagnostic suggestions based on our BKM repository.</p>
+                
+                <div style="background: white; padding: 24px; border-radius: 8px; margin-bottom: 24px;">
+                    <h3 style="font-size: 20px; margin-bottom: 16px; color: #0a2540;">🔍 How It Will Work:</h3>
+                    <ul class="values-list">
+                        <li><strong>Photo Upload:</strong> Snap a photo of the problem on-site (e.g., unusual residue, damaged components, error screens)</li>
+                        <li><strong>AI Visual Analysis:</strong> The system analyzes the image and compares it to documented issues in BKMs</li>
+                        <li><strong>Video Diagnostics:</strong> Upload short videos of equipment behavior (vibrations, sounds, operational issues)</li>
+                        <li><strong>Instant Suggestions:</strong> Get troubleshooting recommendations based on visual analysis + BKM documentation</li>
+                        <li><strong>Build Knowledge Base:</strong> Your uploaded photos/videos become part of our visual BKM library for future reference</li>
+                    </ul>
+                </div>
+
+                <div style="background: white; padding: 24px; border-radius: 8px; margin-bottom: 24px;">
+                    <h3 style="font-size: 20px; margin-bottom: 16px; color: #0a2540;">💡 Example Use Cases:</h3>
+                    <ul class="values-list">
+                        <li>"Is this chamber contamination or normal wear?" → Upload photo → Get AI diagnosis</li>
+                        <li>"What's causing this unusual pump noise?" → Upload video → Get suggested checks</li>
+                        <li>"Does this O-ring need replacement?" → Upload close-up photo → Get maintenance recommendation</li>
+                        <li>"Is this wiring configuration correct?" → Upload photo → Compare to standard installation photos</li>
+                        <li>"What type of vacuum leak does this sound indicate?" → Upload audio/video → Get diagnostic help</li>
+                    </ul>
+                </div>
+
+                <div style="background: #fff3cd; border-left: 4px solid #ffc107; padding: 20px; border-radius: 6px;">
+                    <h4 style="color: #856404; font-size: 16px; margin-bottom: 8px;">📋 In Development - Phase 2</h4>
+                    <p style="color: #856404; font-size: 14px; margin-bottom: 12px;">This feature is planned for Phase 2 rollout. We're evaluating AI vision capabilities to ensure accurate diagnostics for FSE field work.</p>
+                    <p style="color: #856404; font-size: 14px; margin: 0;"><strong>Interested in beta testing?</strong> Contact <a href="mailto:margaret.davies@coherent.com.au" style="color: #0a2540; font-weight: 600; text-decoration: underline;">Margaret Davies</a> to express interest and help shape this feature.</p>
+                </div>
+            </div>
+
+            <!-- Other Resources Section -->
+            <div class="placeholder-box" style="margin-top: 48px;">
+                <p style="font-size: 18px; margin-bottom: 12px;">📁 Additional Resources Coming Soon</p>
+                <p>This section will include video tutorials, quick reference guides, and supplementary documentation</p>
+            </div>
+
+            <div class="content-box">
+                <h3 style="margin-bottom: 16px; font-size: 20px;">Planned Resources</h3>
+                <ul class="values-list">
+                    <li><strong>Video Tutorials:</strong> Screen recordings of common procedures and troubleshooting workflows</li>
+                    <li><strong>Quick Reference Cards:</strong> Printable one-page guides for frequently used procedures</li>
+                    <li><strong>Installation Checklists:</strong> Step-by-step checklists for equipment installation and commissioning</li>
+                    <li><strong>Safety Procedures:</strong> Essential safety protocols for working with high-voltage and vacuum systems</li>
+                </ul>
+                <p style="margin-top: 20px; color: #5f6368; font-size: 14px;">Have a suggestion for resources to add? Email <a href="mailto:margaret.davies@coherent.com.au" style="color: #0a2540; font-weight: 600;">Margaret Davies</a></p>
+            </div>
+        </section>
+    </div>
+
+    <!-- OPS PAGE -->
+    <div id="ops" class="section-alt">
+        <div class="page-header">
+            <h1>Service Call Logging (Coming Soon)</h1>
+            <p>Digital logbook for tracking service calls, documenting solutions, and building our collective knowledge base.</p>
+        </div>
+
+        <section class="section">
+            <div class="placeholder-box">
+                <p style="font-size: 18px; margin-bottom: 12px;">📱 Service Call Logger Coming Soon</p>
+                <p>A mobile-friendly tool for logging service calls and contributing to our BKM repository</p>
+            </div>
+
+            <div class="content-box">
+                <h3 style="margin-bottom: 16px; font-size: 20px;">Planned Features</h3>
+                <ul class="values-list">
+                    <li><strong>Quick Logging:</strong> Document equipment, fault description, and resolution in under 2 minutes</li>
+                    <li><strong>Photo Upload:</strong> Attach images of problems and solutions directly from your phone</li>
+                    <li><strong>Knowledge Sharing:</strong> Your documented solutions become searchable BKMs for the entire team</li>
+                    <li><strong>Trend Analysis:</strong> Identify recurring issues and proactive maintenance opportunities</li>
+                </ul>
+                <p style="margin-top: 20px; color: #5f6368; font-size: 14px;">This feature will be built in Phase 2 of the platform rollout. For now, continue using your current service call documentation process.</p>
+            </div>
+        </section>
+    </div>
+
+    <!-- CONTACT SECTION -->
+    <div id="contact">
+        <section class="section">
+            <h2 class="section-title">New to Coherent Scientific?</h2>
+            <p class="section-subtitle">Request access to the FSE Knowledge Hub and start searching our BKM repository. If you have questions about the platform or suggestions for additional equipment to document, contact Margaret Davies.</p>
+
+            <div style="text-align: center; margin-top: 32px;">
+                <a href="mailto:margaret.davies@coherent.com.au?subject=FSE Platform Access Request&body=Name:%0D%0ARole:%0D%0AInstruments I Support:%0D%0AManager Email:%0D%0A" class="cta-button">Request Access Now</a>
+            </div>
+
+            <div class="info-banner" style="margin-top: 48px; max-width: 700px; margin-left: auto; margin-right: auto;">
+                <h4>Questions or Need Support?</h4>
+                <p>
+                    📧 Email: <a href="mailto:margaret.davies@coherent.com.au" style="color: #0a2540; font-weight: 600;">margaret.davies@coherent.com.au</a><br>
+                    📚 Currently available: JEOL SEM IT800 and TEM 1400 Flash BKMs<br>
+                    🔄 Expanding soon: Pumps, vacuum systems, circuitry, and other equipment<br>
+                    🔒 Internal use only - All data stays within Coherent Scientific
+                </p>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-logo">Coherent Scientific FSE Knowledge Hub</div>
+        <p>&copy; 2024 Coherent Scientific | BKM Repository & Onboarding Platform - Internal Use Only</p>
+        <div style="margin-top: 16px;">
+            <a href="https://www.coherent.com.au/" target="_blank" rel="noopener">Coherent.com.au</a>
+            <a href="mailto:support@coherent.com.au">Support</a>
+            <a href="mailto:margaret.davies@coherent.com.au">Platform Administrator</a>
+        </div>
+    </footer>
+
+    <!-- Smooth Scroll Script -->
+    <script>
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

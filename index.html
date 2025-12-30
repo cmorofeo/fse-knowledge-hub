@@ -709,6 +709,148 @@
                 }
             });
         });
+
+        // Mobile Detection for NotebookLM Links
+        function isMobileDevice() {
+            return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        }
+
+        // Add mobile warning for NotebookLM links
+        if (isMobileDevice()) {
+            document.addEventListener('DOMContentLoaded', function() {
+                const notebookLinks = document.querySelectorAll('a[href*="notebooklm.google.com"]');
+                
+                notebookLinks.forEach(link => {
+                    link.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        
+                        const notebookUrl = this.getAttribute('href');
+                        const notebookName = this.closest('.card').querySelector('h3').textContent;
+                        
+                        // Create modal
+                        const modal = document.createElement('div');
+                        modal.style.cssText = `
+                            position: fixed;
+                            top: 0;
+                            left: 0;
+                            width: 100%;
+                            height: 100%;
+                            background: rgba(0,0,0,0.8);
+                            z-index: 10000;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            padding: 20px;
+                        `;
+                        
+                        modal.innerHTML = `
+                            <div style="
+                                background: white;
+                                border-radius: 12px;
+                                padding: 32px 24px;
+                                max-width: 500px;
+                                width: 100%;
+                                box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+                            ">
+                                <div style="text-align: center; margin-bottom: 20px; font-size: 48px;">
+                                    📱💻
+                                </div>
+                                <h3 style="
+                                    color: #0a2540;
+                                    font-size: 22px;
+                                    margin-bottom: 16px;
+                                    text-align: center;
+                                ">Desktop Recommended</h3>
+                                <p style="
+                                    color: #5f6368;
+                                    font-size: 15px;
+                                    line-height: 1.6;
+                                    margin-bottom: 20px;
+                                ">
+                                    <strong>${notebookName}</strong> works best on a desktop or laptop computer. 
+                                    NotebookLM's mobile experience is currently limited.
+                                </p>
+                                
+                                <div style="
+                                    background: #f8f9fa;
+                                    padding: 16px;
+                                    border-radius: 8px;
+                                    margin-bottom: 20px;
+                                    border-left: 4px solid #0a2540;
+                                ">
+                                    <p style="
+                                        color: #0a2540;
+                                        font-size: 14px;
+                                        font-weight: 600;
+                                        margin-bottom: 8px;
+                                    ">Workaround for Mobile:</p>
+                                    <ol style="
+                                        margin: 0;
+                                        padding-left: 20px;
+                                        color: #5f6368;
+                                        font-size: 13px;
+                                    ">
+                                        <li style="margin-bottom: 6px;">Tap "Continue Anyway" below</li>
+                                        <li style="margin-bottom: 6px;">When page opens, tap <strong>AA</strong> in address bar</li>
+                                        <li style="margin-bottom: 6px;">Select "Request Desktop Website"</li>
+                                        <li>Page will reload in desktop mode</li>
+                                    </ol>
+                                </div>
+                                
+                                <div style="
+                                    display: flex;
+                                    gap: 12px;
+                                    flex-direction: column;
+                                ">
+                                    <button onclick="window.open('${notebookUrl}', '_blank')" style="
+                                        background: #0a2540;
+                                        color: white;
+                                        border: none;
+                                        padding: 14px 24px;
+                                        border-radius: 6px;
+                                        font-size: 15px;
+                                        font-weight: 600;
+                                        cursor: pointer;
+                                        text-transform: uppercase;
+                                        letter-spacing: 0.5px;
+                                    ">Continue Anyway</button>
+                                    
+                                    <button onclick="this.closest('[style*=fixed]').remove()" style="
+                                        background: white;
+                                        color: #0a2540;
+                                        border: 2px solid #0a2540;
+                                        padding: 14px 24px;
+                                        border-radius: 6px;
+                                        font-size: 15px;
+                                        font-weight: 600;
+                                        cursor: pointer;
+                                        text-transform: uppercase;
+                                        letter-spacing: 0.5px;
+                                    ">I'll Use Desktop</button>
+                                </div>
+                                
+                                <p style="
+                                    text-align: center;
+                                    color: #9ca3af;
+                                    font-size: 12px;
+                                    margin-top: 16px;
+                                    margin-bottom: 0;
+                                ">💡 Tip: Bookmark this site on both mobile and desktop</p>
+                            </div>
+                        `;
+                        
+                        document.body.appendChild(modal);
+                        
+                        // Close modal when clicking outside
+                        modal.addEventListener('click', function(e) {
+                            if (e.target === modal) {
+                                modal.remove();
+                            }
+                        });
+                    });
+                });
+            });
+        }
     </script>
 </body>
 </html>
